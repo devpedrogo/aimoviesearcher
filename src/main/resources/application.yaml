@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: aimoviesearcher
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:sua-chave-aqui}
+
+tmdb:
+  api:
+    base-url: https://api.themoviedb.org/3
+    token: ${TMDB_BEARER_TOKEN}
