@@ -8,5 +8,25 @@
     "name": "tmdb.api.token",
     "type": "java.lang.String",
     "description": "A description for 'tmdb.api.token'"
+  },
+  {
+    "name": "spring.ai.google.genai.api-key",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.ai.google.genai.api-key'"
+  },
+  {
+    "name": "tmdb.api.base-url",
+    "type": "java.lang.String",
+    "description": "A description for 'tmdb.api.base-url'"
+  },
+  {
+    "name": "spring.ai.google.genai.chat.options.model",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.ai.google.genai.chat.options.model'"
+  },
+  {
+    "name": "tmdb.api.token",
+    "type": "java.lang.String",
+    "description": "A description for 'tmdb.api.token'"
   }
 ]}
