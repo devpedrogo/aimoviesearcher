@@ -2,9 +2,11 @@ spring:
   application:
     name: aimoviesearcher
   ai:
-    openai:
-      api-key: ${OPENAI_API_KEY:sua-chave-aqui}
-
+    google:
+      genai:
+        api-key: ${GEMINI_API_KEY}
+        chat:
+          model: gemini-3.8-flash
 tmdb:
   api:
     base-url: https://api.themoviedb.org/3
