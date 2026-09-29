@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/search")
-@CrossOrigin(origins = "*") // Liberado para desenvolvimento local com Angular
 public class MovieSearchController {
 
     private final TmdbService tmdbService;
@@ -32,16 +31,18 @@ public class MovieSearchController {
     // Busca Inteligente (Assistida por IA)
     @GetMapping("/ai")
     public ResponseEntity<TmdbSearchResponseDto> searchWithAi(@RequestParam String prompt) {
-        // 1. A IA extrai a intenção do usuário no record Java
-        SearchParameters params = aiSearchService.parseUserPrompt(prompt);
-
-        // 2. O TMDB é consultado com o termo limpo e o ano extraídos
-        TmdbSearchResponseDto result = tmdbService.searchMulti(
-                params.query(), 
-                params.year(), 
-                "pt-BR"
-        );
-
-        return ResponseEntity.ok(result);
+        try {
+            SearchParameters params = aiSearchService.parseUserPrompt(prompt);
+            TmdbSearchResponseDto result = tmdbService.searchMulti(
+                    params.query(), 
+                    params.year(), 
+                    "pt-BR"
+            );
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            System.err.println("Fallback acionado devido a falha na IA: " + e.getMessage());
+            TmdbSearchResponseDto fallbackResult = tmdbService.searchMulti(prompt, null, "pt-BR");
+            return ResponseEntity.ok(fallbackResult);
+        }
     }
 }
