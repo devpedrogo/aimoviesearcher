@@ -3,7 +3,7 @@ package com.devpedrogo.aimoviesearcher.dto;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 
 public record SearchParameters(
-    @JsonPropertyDescription("O nome exato ou termo simplificado do filme/série inferido a partir da busca do usuário. Exemplo: se o usuário pedir 'filme de ficção do Nolan com sonhos', inferir 'Inception'.")
+    @JsonPropertyDescription("Se a solicitação se referir a um filme/série exato e famoso, retorne o título. Caso seja a descrição de uma premissa/enredo, retorne as principais palavras-chave em inglês e português separadas por espaço (Ex: 'wish obsessed girlfriend horror').")    
     String query,
 
     @JsonPropertyDescription("O ano de lançamento (YYYY) se mencionado ou inferido. Deixar nulo se não houver um ano claro.")
