@@ -53,4 +53,27 @@ public class TmdbService {
             throw new TmdbApiException("Falha na consulta de mídia na API do TMDB.", e);
         }
     }
+
+    public List<TmdbMediaDto> getRecommendations(Long id, String mediaType) {
+        try {
+            String path = "movie".equalsIgnoreCase(mediaType) 
+                    ? "/movie/" + id + "/recommendations" 
+                    : "/tv/" + id + "/recommendations";
+
+            TmdbSearchResponseDto response = tmdbWebClient.get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path(path)
+                            .queryParam("language", "pt-BR")
+                            .build())
+                    .retrieve()
+                    .bodyToMono(TmdbSearchResponseDto.class)
+                    .timeout(Duration.ofSeconds(5))
+                    .block();
+
+            return response != null && response.results() != null ? response.results() : List.of();
+        } catch (Exception e) {
+            // Se falhar a recomendação, retorna lista vazia sem derrubar a busca principal
+            return List.of();
+        }
+    }
 }
