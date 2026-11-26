@@ -11,10 +11,22 @@ public class AiSearchService {
 
     private final ChatClient chatClient;
 
+    /**
+     * Inicializa o serviço responsável por interpretar solicitações com IA.
+     *
+     * @param chatClientBuilder construtor usado para criar o cliente de comunicação com o modelo
+     */
     public AiSearchService(ChatClient.Builder chatClientBuilder) {
         this.chatClient = chatClientBuilder.build();
     }
 
+    /**
+     * Converte o texto informado pelo usuário em parâmetros estruturados de busca.
+     *
+     * @param userPrompt descrição ou título informado pelo usuário
+     * @return parâmetros extraídos para localizar filmes ou séries no TMDB
+     * @throws AiProcessingException quando o texto não puder ser interpretado pela IA
+     */
     public SearchParameters parseUserPrompt(String userPrompt) {
         try {
             String systemPrompt = """
