@@ -14,10 +14,24 @@ public class TmdbService {
 
     private final WebClient tmdbWebClient;
 
+    /**
+     * Inicializa o serviço responsável pelas consultas à API do TMDB.
+     *
+     * @param tmdbWebClient cliente HTTP configurado para acessar o TMDB
+     */
     public TmdbService(WebClient tmdbWebClient) {
         this.tmdbWebClient = tmdbWebClient;
     }
 
+    /**
+     * Busca filmes e séries pelo título ou termo informado.
+     *
+     * @param query texto utilizado na consulta ao TMDB
+     * @param year ano opcional usado para filtrar os resultados pela data de lançamento
+     * @param language idioma da resposta; quando nulo, utiliza o idioma português brasileiro
+     * @return resposta da busca contendo os resultados encontrados
+     * @throws TmdbApiException quando ocorre uma falha durante a consulta ao TMDB
+     */
     public TmdbSearchResponseDto searchMulti(String query, String year, String language) {
         try {
             TmdbSearchResponseDto rawResponse = tmdbWebClient.get()
@@ -54,6 +68,13 @@ public class TmdbService {
         }
     }
 
+    /**
+     * Obtém mídias recomendadas com base em um filme ou série existente.
+     *
+     * @param id identificador da mídia no TMDB
+     * @param mediaType tipo da mídia; "movie" identifica filmes e os demais valores identificam séries
+     * @return lista de recomendações ou uma lista vazia quando a consulta falhar
+     */
     public List<TmdbMediaDto> getRecommendations(Long id, String mediaType) {
         try {
             String path = "movie".equalsIgnoreCase(mediaType) 
