@@ -16,11 +16,27 @@ public class MovieOrchestratorService {
     private final AiSearchService aiSearchService;
     private final TmdbService tmdbService;
 
+    /**
+     * Inicializa o serviço que coordena a interpretação por IA e as consultas ao TMDB.
+     *
+     * @param aiSearchService serviço usado para interpretar a solicitação do usuário
+     * @param tmdbService serviço usado para buscar mídias e recomendações
+     */
     public MovieOrchestratorService(AiSearchService aiSearchService, TmdbService tmdbService) {
         this.aiSearchService = aiSearchService;
         this.tmdbService = tmdbService;
     }
 
+    /**
+     * Interpreta o texto do usuário e realiza uma busca enriquecida com recomendações.
+     *
+     * <p>Primeiro, a solicitação é convertida em parâmetros pela IA. Em seguida, o TMDB é consultado
+     * e os principais resultados são complementados com recomendações relacionadas. Se a IA falhar,
+     * a busca original é enviada diretamente ao TMDB como alternativa.</p>
+     *
+     * @param prompt descrição ou termo de pesquisa informado pelo usuário
+     * @return resultados principais e recomendações em uma única resposta de busca
+     */
     public TmdbSearchResponseDto searchWithAi(String prompt) {
         try {
             // 1. A IA extrai os parâmetros da frase do usuário
